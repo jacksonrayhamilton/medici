@@ -33,10 +33,6 @@ pub fn calculate_result(coins: u32, money: u32) -> (u32, u32, u32, u32) {
         dimes -= 1;
         pennies += 1;
     }
-    while quarters > 0 && ((pennies * PENNY_VALUE) % NICKEL_VALUE) != (money % NICKEL_VALUE) {
-        quarters -= 1;
-        pennies += 1;
-    }
     // Increase the money back to the desired value:
     while nickels > 0 && money::sum_of_denominations(quarters, dimes, nickels, pennies) < money {
         nickels -= 1;
