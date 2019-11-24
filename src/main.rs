@@ -6,8 +6,12 @@ const PENNY_VALUE: u32 = 1;
 fn main() {
     // let coins = 1692;
     // let money = 10054;
-    let coins = 440;
-    let money = 4510;
+    // let coins = 440;
+    // let money = 4510;
+    // let coins = 513;
+    // let money = 1712;
+    let coins = 100;
+    let money = 1200;
     print_inputs(coins, money);
     let (quarters, dimes, nickels, pennies) = calculate_result(coins, money);
     println!();
@@ -47,20 +51,17 @@ fn calculate_result(coins: u32, money: u32) -> (u32, u32, u32, u32) {
             pennies += 1;
         }
     // Ensure a valid penny value:
-    let difference = money - sum_of_denominations(quarters, dimes, nickels, pennies);
-    if difference > 0 && difference < NICKEL_VALUE {
-        while nickels > 0 && (pennies * PENNY_VALUE) < difference {
-            nickels -= 1;
-            pennies += 1;
-        }
-        while dimes > 0 && (pennies * PENNY_VALUE) < difference {
-            dimes -= 1;
-            pennies += 1;
-        }
-        while quarters > 0 && (pennies * PENNY_VALUE) < difference {
-            quarters -= 1;
-            pennies += 1;
-        }
+    while nickels > 0 && ((pennies * PENNY_VALUE) % NICKEL_VALUE) != (money % NICKEL_VALUE) {
+        nickels -= 1;
+        pennies += 1;
+    }
+    while dimes > 0 && ((pennies * PENNY_VALUE) % NICKEL_VALUE) != (money % NICKEL_VALUE) {
+        dimes -= 1;
+        pennies += 1;
+    }
+    while quarters > 0 && ((pennies * PENNY_VALUE) % NICKEL_VALUE) != (money % NICKEL_VALUE) {
+        quarters -= 1;
+        pennies += 1;
     }
     // Increase the money back to the desired value:
     while nickels > 0 && sum_of_denominations(quarters, dimes, nickels, pennies) < money {
