@@ -1,11 +1,13 @@
+use std::cmp;
 use crate::money;
-use crate::money::{NICKEL_VALUE, PENNY_VALUE};
+use crate::money::{QUARTER_VALUE, DIME_VALUE, NICKEL_VALUE, PENNY_VALUE};
 
 pub fn calculate_result(coins: u32, money: u32) -> (u32, u32, u32, u32) {
-    let mut quarters = coins; // Start with the max money value and work down.
-    let mut dimes = 0;
-    let mut nickels = 0;
-    let mut pennies = 0;
+    // Start with max valid values and work down.
+    let mut quarters = cmp::min(money / QUARTER_VALUE, coins);
+    let mut dimes = cmp::min(money / DIME_VALUE, coins - quarters);
+    let mut nickels = cmp::min(money / NICKEL_VALUE, coins - quarters - dimes);
+    let mut pennies = cmp::min(money / PENNY_VALUE, coins - quarters - dimes - nickels);
     // Dime phase:
     while quarters > 0 &&
         money::sum_of_denominations(quarters, dimes, nickels, pennies) > money {
