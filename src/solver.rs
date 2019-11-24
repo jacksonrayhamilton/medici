@@ -53,3 +53,12 @@ pub fn calculate_result(coins: u32, money: u32) -> (u32, u32, u32, u32) {
     }
     (quarters, dimes, nickels, pennies)
 }
+
+pub fn check_result(expected_coins: u32, expected_money: u32,
+                    quarters: u32, dimes: u32, nickels: u32, pennies: u32)
+                    -> (u32, bool, u32, bool) {
+    let calculated_coins = quarters + dimes + nickels + pennies;
+    let calculated_money = money::sum_of_denominations(quarters, dimes, nickels, pennies);
+    (calculated_coins, expected_coins == calculated_coins,
+     calculated_money, expected_money == calculated_money)
+}

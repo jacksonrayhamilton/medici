@@ -37,22 +37,24 @@ fn print_result(quarters: u32, dimes: u32, nickels: u32, pennies: u32) {
 
 fn check_result(expected_coins: u32, expected_money: u32,
                 quarters: u32, dimes: u32, nickels: u32, pennies: u32) {
-    let calculated_coins = quarters + dimes + nickels + pennies;
-    let calculated_money = money::sum_of_denominations(quarters, dimes, nickels, pennies);
+    let (calculated_coins, coins_correct,
+         calculated_money, money_correct) =
+        solver::check_result(expected_coins, expected_money,
+                             quarters, dimes, nickels, pennies);
     println!();
-    print_check(expected_coins, expected_money, calculated_coins, calculated_money);
+    print_check(calculated_coins, coins_correct, calculated_money, money_correct);
 }
 
-fn print_check(expected_coins: u32, expected_money: u32,
-               calculated_coins: u32, calculated_money: u32) {
+fn print_check(calculated_coins: u32, coins_correct: bool,
+               calculated_money: u32, money_correct: bool) {
     println!(
         concat!(
             "CHECK\n",
             "Coins: {} ({})\n",
             "Money: {} ({})"
         ),
-        calculated_coins, format_success(expected_coins == calculated_coins),
-        format_money(calculated_money), format_success(expected_money == calculated_money)
+        calculated_coins, format_success(coins_correct),
+        format_money(calculated_money), format_success(money_correct)
     );
 }
 
