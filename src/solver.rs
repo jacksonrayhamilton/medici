@@ -62,3 +62,45 @@ pub fn check_result(expected_coins: u32, expected_money: u32,
     (calculated_coins, expected_coins == calculated_coins,
      calculated_money, expected_money == calculated_money)
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::printer;
+
+    const PERMS: u32 = 100; // Use `cargo test --release`!
+
+    #[test]
+    fn test_permutations() {
+        for quarters in 0..PERMS {
+            for dimes in 0..PERMS {
+                for nickels in 0..PERMS {
+                    for pennies in 0..PERMS {
+                        let coins = quarters + dimes + nickels + pennies;
+                        let money = money::sum_of_denominations(
+                            quarters, dimes, nickels, pennies
+                        );
+                        assert_correct_result(coins, money);
+                    }
+                }
+            }
+        }
+    }
+
+    fn assert_correct_result(expected_coins: u32, expected_money: u32) {
+        let (quarters, dimes, nickels, pennies) =
+            calculate_result(expected_coins, expected_money);
+        let (calculated_coins, coins_correct,
+             calculated_money, money_correct) =
+            check_result(expected_coins, expected_money,
+                         quarters, dimes, nickels, pennies);
+        if !(coins_correct && money_correct) {
+            panic!("\n{}\n", printer::format_all(
+                expected_coins, expected_money,
+                quarters, dimes, nickels, pennies,
+                calculated_coins, coins_correct,
+                calculated_money, money_correct
+            ));
+        }
+    }
+}
