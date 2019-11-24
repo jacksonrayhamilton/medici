@@ -22,10 +22,41 @@ fn print_inputs(coins: u32, money: u32) {
 }
 
 fn calculate_result(coins: u32, money: u32) -> (u32, u32, u32, u32) {
-    let mut quarters = 0;
+    let mut quarters = coins; // Start with the max money value and work down.
     let mut dimes = 0;
     let mut nickels = 0;
     let mut pennies = 0;
+    // Dime phase:
+    while quarters > 0 &&
+        sum_of_denominations(quarters, dimes, nickels, pennies) > money {
+            quarters -= 1;
+            dimes += 1;
+        }
+    // Nickel phase:
+    while dimes > 0 &&
+        sum_of_denominations(quarters, dimes, nickels, pennies) > money {
+            dimes -= 1;
+            nickels += 1;
+        }
+    // Penny phase:
+    while nickels > 0 &&
+        sum_of_denominations(quarters, dimes, nickels, pennies) > money {
+            nickels -= 1;
+            pennies += 1;
+        }
+    // Ensure a valid penny value:
+    let difference = money - sum_of_denominations(quarters, dimes, nickels, pennies);
+    if difference > 0 {
+        while nickels > 0 && (pennies * PENNY_VALUE) < difference {
+            nickels -= 1;
+            pennies += 1;
+        }
+    }
+    // Increase the money back to the desired value:
+    while nickels > 0 && sum_of_denominations(quarters, dimes, nickels, pennies) < money {
+        nickels -= 1;
+        dimes += 1;
+    }
     (quarters, dimes, nickels, pennies)
 }
 
