@@ -1,16 +1,10 @@
+mod args;
 mod money;
 mod printer;
 mod solver;
 
 fn main() {
-    // let coins = 1692;
-    // let money = 10054;
-    // let coins = 440;
-    // let money = 4510;
-    // let coins = 513;
-    // let money = 1712;
-    let coins = 100;
-    let money = 1200;
+    let (coins, money) = args::parse_args();
     printer::print_inputs(coins, money);
     let (quarters, dimes, nickels, pennies) = calculate_result(coins, money);
     check_result(coins, money, quarters, dimes, nickels, pennies);
