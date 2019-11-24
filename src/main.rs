@@ -7,10 +7,7 @@ fn main() {
     let coins = 1692;
     let money = 10054;
     print_inputs(coins, money);
-    let quarters = 0;
-    let dimes = 0;
-    let nickels = 0;
-    let pennies = 0;
+    let (quarters, dimes, nickels, pennies) = calculate_result(coins, money);
     println!();
     print_result(quarters, dimes, nickels, pennies);
     check_result(coins, money, quarters, dimes, nickels, pennies);
@@ -22,6 +19,14 @@ fn print_inputs(coins: u32, money: u32) {
         "Coins: {}\n",
         "Money: {}"
     ), coins, format_money(money));
+}
+
+fn calculate_result(coins: u32, money: u32) -> (u32, u32, u32, u32) {
+    let mut quarters = 0;
+    let mut dimes = 0;
+    let mut nickels = 0;
+    let mut pennies = 0;
+    (quarters, dimes, nickels, pennies)
 }
 
 fn print_result(quarters: u32, dimes: u32, nickels: u32, pennies: u32) {
