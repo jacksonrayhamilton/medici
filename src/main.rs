@@ -3,17 +3,20 @@ mod money;
 mod printer;
 mod solver;
 
-fn main() {
-    let (coins, money) = args::parse_args();
-    printer::print_inputs(coins, money);
-    let (quarters, dimes, nickels, pennies) = calculate_result(coins, money);
-    check_result(coins, money, quarters, dimes, nickels, pennies);
+use std::io::{self, BufRead};
+
+fn main() -> std::io::Result<()> {
+    let stdin = io::stdin();
+    for line in stdin.lock().lines() {
+        let (coins, money) = args::parse_args(line?);
+        calculate_result(coins, money);
+    }
+    Ok(())
 }
 
 fn calculate_result(coins: u32, money: u32) -> (u32, u32, u32, u32) {
     let (quarters, dimes, nickels, pennies) = solver::calculate_result(coins, money);
-    println!();
-    printer::print_result(quarters, dimes, nickels, pennies);
+    printer::print_contest_result(quarters, dimes, nickels, pennies);
     (quarters, dimes, nickels, pennies)
 }
 

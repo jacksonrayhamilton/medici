@@ -42,6 +42,11 @@ fn format_result(quarters: u32, dimes: u32, nickels: u32, pennies: u32) -> Strin
     ), quarters, dimes, nickels, pennies)
 }
 
+pub fn print_contest_result(quarters: u32, dimes: u32, nickels: u32, pennies: u32) {
+    println!("\0{{\"quarters\":{},\"dimes\":{},\"nickels\":{},\"pennies\":{}}}",
+             quarters, dimes, nickels, pennies);
+}
+
 pub fn print_check(calculated_coins: u32, coins_correct: bool,
                    calculated_money: u32, money_correct: bool) {
     println!("{}", format_check(calculated_coins, coins_correct,
