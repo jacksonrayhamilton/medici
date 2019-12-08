@@ -16,20 +16,12 @@ pub fn format_all(expected_coins: u32, expected_money: u32,
     )
 }
 
-pub fn print_inputs(coins: u32, money: u32) {
-    println!("{}", format_inputs(coins, money));
-}
-
 fn format_inputs(coins: u32, money: u32) -> String {
     format!(concat!(
         "INPUT\n",
         "Coins: {}\n",
         "Money: {}"
     ), coins, format_money(money))
-}
-
-pub fn print_result(quarters: u32, dimes: u32, nickels: u32, pennies: u32) {
-    println!("{}", format_result(quarters, dimes, nickels, pennies));
 }
 
 fn format_result(quarters: u32, dimes: u32, nickels: u32, pennies: u32) -> String {
@@ -42,15 +34,9 @@ fn format_result(quarters: u32, dimes: u32, nickels: u32, pennies: u32) -> Strin
     ), quarters, dimes, nickels, pennies)
 }
 
-pub fn print_contest_result(quarters: u32, dimes: u32, nickels: u32, pennies: u32) {
+pub fn print_result(quarters: u32, dimes: u32, nickels: u32, pennies: u32) {
     println!("\0{{\"quarters\":{},\"dimes\":{},\"nickels\":{},\"pennies\":{}}}",
              quarters, dimes, nickels, pennies);
-}
-
-pub fn print_check(calculated_coins: u32, coins_correct: bool,
-                   calculated_money: u32, money_correct: bool) {
-    println!("{}", format_check(calculated_coins, coins_correct,
-                                calculated_money, money_correct));
 }
 
 fn format_check(calculated_coins: u32, coins_correct: bool,
