@@ -48,6 +48,7 @@ pub fn calculate_result(coins: u32, money: u32) -> (u32, u32, u32, u32) {
     (quarters, dimes, nickels, pennies)
 }
 
+#[cfg(test)]
 pub fn check_result(expected_coins: u32, expected_money: u32,
                     quarters: u32, dimes: u32, nickels: u32, pennies: u32)
                     -> (u32, bool, u32, bool) {

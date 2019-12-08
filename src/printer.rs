@@ -16,6 +16,7 @@ pub fn format_all(expected_coins: u32, expected_money: u32,
     )
 }
 
+#[cfg(test)]
 fn format_inputs(coins: u32, money: u32) -> String {
     format!(concat!(
         "INPUT\n",
@@ -24,6 +25,7 @@ fn format_inputs(coins: u32, money: u32) -> String {
     ), coins, format_money(money))
 }
 
+#[cfg(test)]
 fn format_result(quarters: u32, dimes: u32, nickels: u32, pennies: u32) -> String {
     format!(concat!(
         "RESULT\n",
@@ -39,6 +41,7 @@ pub fn print_result(quarters: u32, dimes: u32, nickels: u32, pennies: u32) {
              quarters, dimes, nickels, pennies);
 }
 
+#[cfg(test)]
 fn format_check(calculated_coins: u32, coins_correct: bool,
                 calculated_money: u32, money_correct: bool) -> String {
     format!(
@@ -52,12 +55,14 @@ fn format_check(calculated_coins: u32, coins_correct: bool,
     )
 }
 
+#[cfg(test)]
 fn format_money(money: u32) -> String {
     let dollars = money / 100;
     let cents = money % 100;
     format!("${}.{:02}", dollars, cents)
 }
 
+#[cfg(test)]
 fn format_success(success: bool) -> String {
     if success { "✓" } else { "✗" }.to_string()
 }
